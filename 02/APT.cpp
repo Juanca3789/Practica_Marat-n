@@ -1,10 +1,12 @@
 #include <iostream>
 #include <algorithm>
+#include <iomanip>
 using namespace std;
 
 
 int main() {
-    int n, m, k, *weights, total = 0, downloaded = 0;
+    int n, m, k, *weights;
+	uint64_t total = 0, downloaded = 0;
     cin>>n;
     cin>>m;
     cin>>k;
@@ -14,8 +16,10 @@ int main() {
         total += weights[i];
     }
     sort(weights, weights+n);
-    for (int i = n - 1 ; i >=  n - (m + k); i--) {
-        downloaded += weights[i];
-    }
-    cout<<(double(downloaded) / double(total)) * double(100);
+    int mayor = n - 1;
+    int menorDescargable = n > m + k ? n - (m + k) : 0;
+    for(int i = mayor; i >= menorDescargable; i--){
+    	downloaded += weights[i];
+	}
+    cout<<setprecision(12)<<(double(downloaded) / double(total)) * double(100)<<endl;	
 }
